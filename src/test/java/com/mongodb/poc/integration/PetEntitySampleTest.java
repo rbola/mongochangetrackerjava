@@ -21,7 +21,7 @@ public class PetEntitySampleTest {
 
     private void init() {
         _manager = new FamilyManager();
-        //  prePopulateDB();
+        prePopulateDB();
 
     }
 
