@@ -11,12 +11,7 @@ import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
-
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
-import java.util.Properties;
 import java.util.ResourceBundle;
 
 import static com.mongodb.client.model.Filters.*;
@@ -27,7 +22,7 @@ public class Repository {
 
     private static final String _collectionPetName = "pet";
     private static final String _databaseName = "family";
-   // private static final String _connectionString = "mongodb+srv://entitytracking:LdwCL2a9ZWHl5jTK@prodteam1-kx1de.mongodb.net/test?retryWrites=true";
+
     private static MongoClient _client;
     private static MongoDatabase _database;
     private static MongoCollection<PetEntitySample> _collectionpet;
