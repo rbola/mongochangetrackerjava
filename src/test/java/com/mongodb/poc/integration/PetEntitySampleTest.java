@@ -26,26 +26,30 @@ public class PetEntitySampleTest {
     }
 
     private void prePopulateDB() {
-        List<PetEntitySample> pets = new ArrayList<>();
 
-        PetEntitySample pet1 = new PetEntitySample();
-        PetEntitySample pet2 = new PetEntitySample();
+        FindIterable<PetEntitySample> dbPets = _manager.getPets();
+        if (dbPets.first() == null) {
+            List<PetEntitySample> pets = new ArrayList<>();
 
-        pet1.setAnimal("Dog");
-        PetBed bed1 = new PetBed();
-        bed1.setDescription("Pillow");
-        pet1.setBed(bed1);
+            PetEntitySample pet1 = new PetEntitySample();
+            PetEntitySample pet2 = new PetEntitySample();
+
+            pet1.setAnimal("Dog");
+            PetBed bed1 = new PetBed();
+            bed1.setDescription("Pillow");
+            pet1.setBed(bed1);
 
 
-        pet2.setAnimal("Cat");
-        PetBed bed2 = new PetBed();
-        bed2.setDescription("Pet Cave");
-        pet2.setBed(bed2);
+            pet2.setAnimal("Cat");
+            PetBed bed2 = new PetBed();
+            bed2.setDescription("Pet Cave");
+            pet2.setBed(bed2);
 
-        pets.add(pet1);
-        pets.add(pet2);
+            pets.add(pet1);
+            pets.add(pet2);
 
-        _manager.savePets(pets);
+            _manager.savePets(pets);
+        }
     }
 
     @Test
@@ -69,7 +73,7 @@ public class PetEntitySampleTest {
         }
         PetEntitySample pet1 = _manager.getPet(dogId);
         PetBed bed1 = pet1.getBed();
-        bed1.setDescription("Big "+bed1.getDescription());
+        bed1.setDescription("Big " + bed1.getDescription());
         pet1.setBed(bed1);
 
         _manager.updatePet(pet1);
@@ -77,6 +81,6 @@ public class PetEntitySampleTest {
 
         PetEntitySample pet1Updated = _manager.getPet(dogId);
 
-        Assert.assertEquals(pet1.getBed().getDescription(),pet1Updated.getBed().getDescription());
+        Assert.assertEquals(pet1.getBed().getDescription(), pet1Updated.getBed().getDescription());
     }
 }
