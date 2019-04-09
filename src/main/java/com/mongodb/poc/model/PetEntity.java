@@ -5,7 +5,7 @@ import com.mongodb.client.model.Filters;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
-public class PetEntitySample extends MongoTrackingRootEntity {
+public class PetEntity extends MongoTrackingRootEntity {
     protected String _animal;
     protected PetBed _bed = new PetBed();
     protected ObjectId _id;

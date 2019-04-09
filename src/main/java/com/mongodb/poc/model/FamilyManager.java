@@ -19,22 +19,22 @@ public class FamilyManager {
         _repo.clearPet();
     }
 
-    public void savePets(List<PetEntitySample> pets){
+    public void savePets(List<PetEntity> pets){
         _repo.savePets(pets);
     }
 
-    public PetEntitySample getPet(ObjectId id){
-        PetEntitySample pet=  _repo.getPet(id);
+    public PetEntity getPet(ObjectId id){
+        PetEntity pet=  _repo.getPet(id);
         pet.startTracking();
         pet.getBed().startTracking();
         return  pet;
     }
 
-    public FindIterable<PetEntitySample> getPets(){
+    public FindIterable<PetEntity> getPets(){
        return _repo.getPets();
     }
 
-    public void updatePet(PetEntitySample pet){
+    public void updatePet(PetEntity pet){
          _repo.updatePet(pet);
     }
 
