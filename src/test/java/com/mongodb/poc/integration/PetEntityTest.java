@@ -5,16 +5,22 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.poc.model.FamilyManager;
 import com.mongodb.poc.model.PetBed;
-import com.mongodb.poc.model.PetEntitySample;
+import com.mongodb.poc.model.PetEntity;
+
+import org.junit.Test;
+import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.test.JerseyTest;
+import org.glassfish.jersey.test.TestProperties;
+import javax.ws.rs.core.*;
 import org.bson.types.ObjectId;
 import org.junit.*;
-
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class PetEntitySampleTest {
+
+public class PetEntityTest {
 
     private FamilyManager _manager;
 
@@ -26,13 +32,12 @@ public class PetEntitySampleTest {
     }
 
     private void prePopulateDB() {
-
-        FindIterable<PetEntitySample> dbPets = _manager.getPets();
+        FindIterable<PetEntity> dbPets = _manager.getPets();
         if (dbPets.first() == null) {
-            List<PetEntitySample> pets = new ArrayList<>();
+            List<PetEntity> pets = new ArrayList<>();
 
-            PetEntitySample pet1 = new PetEntitySample();
-            PetEntitySample pet2 = new PetEntitySample();
+            PetEntity pet1 = new PetEntity();
+            PetEntity pet2 = new PetEntity();
 
             pet1.setAnimal("Dog");
             PetBed bed1 = new PetBed();
@@ -57,12 +62,12 @@ public class PetEntitySampleTest {
         init();
 
         ObjectId dogId = null;
-        FindIterable<PetEntitySample> pets = _manager.getPets();
-        MongoCursor<PetEntitySample> pCursor = pets.iterator();
+        FindIterable<PetEntity> pets = _manager.getPets();
+        MongoCursor<PetEntity> pCursor = pets.iterator();
 
         try {
             while (pCursor.hasNext()) {
-                PetEntitySample pet = pCursor.next();
+                PetEntity pet = pCursor.next();
                 if (pet.getAnimal().equals("Dog")) {
                     dogId = pet.getId();
                     break;
@@ -71,16 +76,16 @@ public class PetEntitySampleTest {
         } finally {
             pCursor.close();
         }
-        PetEntitySample pet1 = _manager.getPet(dogId);
+        PetEntity pet1 = _manager.getPet(dogId);
         PetBed bed1 = pet1.getBed();
         bed1.setDescription("Big " + bed1.getDescription());
         pet1.setBed(bed1);
 
         _manager.updatePet(pet1);
-
-
-        PetEntitySample pet1Updated = _manager.getPet(dogId);
+        PetEntity pet1Updated = _manager.getPet(dogId);
 
         Assert.assertEquals(pet1.getBed().getDescription(), pet1Updated.getBed().getDescription());
     }
+
+
 }
