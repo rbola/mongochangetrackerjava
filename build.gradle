@@ -2,6 +2,14 @@ plugins {
     id 'java'
 }
 
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'com.mongodb.poc.App'
+        )
+    }
+}
+
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
@@ -10,11 +18,14 @@ repositories {
     mavenCentral()
 }
 
+
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     testCompile group: 'org.glassfish.jersey.test-framework.providers', name: 'jersey-test-framework-provider-grizzly2', version: '2.26'
-    compile group: 'org.glassfish.jersey.inject', name: 'jersey-hk2', version: '2.26-b07'
-    compile group: 'org.glassfish.jersey.media', name: 'jersey-media-json-jackson', version: '2.27'
-    compile 'org.mongodb:mongodb-driver:3.9.0'
+    compile group: 'org.glassfish.jersey.inject', name: 'jersey-hk2', version: '2.26'
+    compile group: 'org.glassfish.jersey.media', name: 'jersey-media-json-jackson', version: '2.26'
+    compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-grizzly2-servlet', version: '2.26'
     compile 'javax.ws.rs:javax.ws.rs-api:2.1.1'
+    compile 'org.mongodb:mongodb-driver:3.9.0'
+
 }
