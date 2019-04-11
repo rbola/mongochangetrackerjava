@@ -4,6 +4,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.poc.repository.Repository;
 import org.bson.types.ObjectId;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FamilyManager {
@@ -30,8 +31,9 @@ public class FamilyManager {
         return  pet;
     }
 
-    public FindIterable<PetEntity> getPets(){
-       return _repo.getPets();
+    public List<PetEntity> getPets(){
+
+        return   _repo.getPets().into(new ArrayList<>());
     }
 
     public void updatePet(PetEntity pet){

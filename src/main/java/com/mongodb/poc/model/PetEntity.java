@@ -5,6 +5,9 @@ import com.mongodb.client.model.Filters;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class PetEntity extends MongoTrackingRootEntity {
     protected String _animal;
     protected PetBed _bed = new PetBed();

@@ -19,11 +19,11 @@ import java.util.List;
 
 public class PetResourceTest extends JerseyTest {
 
-    @Path("pet")
+    @Path("pets")
     public static class PetResource {
         @GET
         @Produces("application/json")
-        public List<PetEntity> getPets() {
+        public Response getPets() {
             List<PetEntity> pets = new ArrayList<>();
 
             PetEntity pet1 = new PetEntity();
@@ -42,11 +42,14 @@ public class PetResourceTest extends JerseyTest {
 
             pets.add(pet1);
             pets.add(pet2);
-            return pets;
+
+            GenericEntity<List<PetEntity>> response = new GenericEntity<List<PetEntity>>(pets) {};
+
+            return Response.status(200).entity(response).build();
         }
     }
 
-    @Override
+ @Override
     protected TestContainerFactory getTestContainerFactory() {
         return new GrizzlyWebTestContainerFactory();
     }
@@ -64,7 +67,7 @@ public class PetResourceTest extends JerseyTest {
 
     @Test
     public void testGetPetREST(){
-        Response output = target("pet").request(MediaType.APPLICATION_JSON_TYPE).get();
+        Response output = target("pets").request(MediaType.APPLICATION_JSON_TYPE).get();
         System.out.println(output.readEntity(String.class));
         Assert.assertEquals("should return status 200", 200, output.getStatus());
     }

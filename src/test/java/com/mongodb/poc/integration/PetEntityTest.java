@@ -8,10 +8,6 @@ import com.mongodb.poc.model.PetBed;
 import com.mongodb.poc.model.PetEntity;
 
 import org.junit.Test;
-import org.glassfish.jersey.server.ResourceConfig;
-import org.glassfish.jersey.test.JerseyTest;
-import org.glassfish.jersey.test.TestProperties;
-import javax.ws.rs.core.*;
 import org.bson.types.ObjectId;
 import org.junit.*;
 
@@ -32,8 +28,8 @@ public class PetEntityTest {
     }
 
     private void prePopulateDB() {
-        FindIterable<PetEntity> dbPets = _manager.getPets();
-        if (dbPets.first() == null) {
+        List<PetEntity> dbPets = _manager.getPets();
+        if (dbPets.size()>0) {
             List<PetEntity> pets = new ArrayList<>();
 
             PetEntity pet1 = new PetEntity();
@@ -60,22 +56,9 @@ public class PetEntityTest {
     @Test
     public void testUpdatePet1() {
         init();
+        List<PetEntity> pets = _manager.getPets();
 
-        ObjectId dogId = null;
-        FindIterable<PetEntity> pets = _manager.getPets();
-        MongoCursor<PetEntity> pCursor = pets.iterator();
-
-        try {
-            while (pCursor.hasNext()) {
-                PetEntity pet = pCursor.next();
-                if (pet.getAnimal().equals("Dog")) {
-                    dogId = pet.getId();
-                    break;
-                }
-            }
-        } finally {
-            pCursor.close();
-        }
+        ObjectId dogId=pets.get(0).getId();
         PetEntity pet1 = _manager.getPet(dogId);
         PetBed bed1 = pet1.getBed();
         bed1.setDescription("Big " + bed1.getDescription());
