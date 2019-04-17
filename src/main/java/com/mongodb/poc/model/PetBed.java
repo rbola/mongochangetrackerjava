@@ -2,8 +2,9 @@ package com.mongodb.poc.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(value = { "updateDocument" })
+@JsonIgnoreProperties(value = {"updateDocument"})
 public class PetBed extends MongoTrackingNestedEntity {
+
     protected String _desc;
 
     public String getDescription() {
@@ -11,10 +12,13 @@ public class PetBed extends MongoTrackingNestedEntity {
     }
 
     public void setDescription(String vDesc) {
-        if (_desc != vDesc) {
-            _desc = vDesc;
-            set("description",_desc);
+
+        if (_desc != null) {
+            if (!_desc.equals(vDesc)) {
+                set("description", vDesc);
+            }
         }
+        _desc = vDesc;
     }
 
 }

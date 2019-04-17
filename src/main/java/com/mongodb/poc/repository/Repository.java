@@ -64,8 +64,8 @@ public class Repository {
 
     public void updatePet(PetEntity pet) {
         Bson doc = pet.getUpdate​Document();
-
-        _collectionpet.updateOne(pet.Filter(), doc);
+        if (doc != null)
+            _collectionpet.updateOne(pet.Filter(), doc);
     }
 
 
