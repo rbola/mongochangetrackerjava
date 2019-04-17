@@ -1,5 +1,6 @@
 package com.mongodb.poc.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mongodb.client.model.Updates;
 import com.mongodb.poc.interfaces.IMongoChangeTracking;
 import com.mongodb.poc.interfaces.IMongoTrackingNestedElement;
@@ -20,7 +21,7 @@ public abstract class MongoTrackingNestedEntity implements IMongoChangeTracking,
     private Date lastModified;
     final static Logger logger = LogManager.getLogManager().getLogger(MongoTrackingNestedEntity.class.getName());
 
-
+    @JsonIgnore
     public Bson getUpdate​Document(String path) {
         Bson doc = null;
         List<Bson> updates = new ArrayList<>();

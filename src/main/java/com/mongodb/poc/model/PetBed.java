@@ -1,7 +1,10 @@
 package com.mongodb.poc.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(value = { "updateDocument" })
 public class PetBed extends MongoTrackingNestedEntity {
-    private String _desc;
+    protected String _desc;
 
     public String getDescription() {
         return _desc;
