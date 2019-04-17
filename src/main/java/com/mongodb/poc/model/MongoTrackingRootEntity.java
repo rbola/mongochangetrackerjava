@@ -1,5 +1,7 @@
 package com.mongodb.poc.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.mongodb.client.model.Updates;
 import com.mongodb.poc.interfaces.IMongoChangeTracking;
 import com.mongodb.poc.interfaces.IMongoTrackingNestedElement;
@@ -14,16 +16,15 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
-public abstract class MongoTrackingRootEntity extends MongoTrackingSetterAwareEntity implements IMongoChangeTracking {
+public abstract class MongoTrackingRootEntity implements IMongoChangeTracking {
 
     private boolean isTracking;
     private Date lastModified;
     final static Logger logger = LogManager.getLogManager().getLogger(MongoTrackingRootEntity.class.getName());
 
-    public Bson filter;
-
+    @JsonIgnore
     public Bson getUpdate​Document() {
-        Bson doc = super.getUpdate​Document();
+        Bson doc = null;
         List<Bson> updates = new ArrayList<>();
 
         Field[] aClassFields = this.getClass().getDeclaredFields();

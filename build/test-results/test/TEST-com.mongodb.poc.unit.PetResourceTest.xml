@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.mongodb.poc.unit.PetResourceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-04-11T23:41:43" hostname="Ritas-MacBook-Pro.local" time="1.948">
+  <properties/>
+  <testcase name="testGetPetREST" classname="com.mongodb.poc.unit.PetResourceTest" time="1.948"/>
+  <system-out><![CDATA[[{"updateDocument":null,"isTracking":false,"lastModified":null,"filter":null,"id":null,"animal":"Dog","bed":{"isTracking":false,"lastModified":null,"description":"Pillow"}},{"updateDocument":null,"isTracking":false,"lastModified":null,"filter":null,"id":null,"animal":"Cat","bed":{"isTracking":false,"lastModified":null,"description":"Pet Cave"}}]
+]]></system-out>
+  <system-err><![CDATA[Apr 12, 2019 12:41:43 AM org.glassfish.jersey.test.grizzly.GrizzlyWebTestContainerFactory$GrizzlyWebTestContainer <init>
+INFO: Creating GrizzlyWebTestContainer configured at the base URI http://localhost:9998/
+Apr 12, 2019 12:41:43 AM org.glassfish.grizzly.servlet.WebappContext deploy
+INFO: Starting application [TestContext] ...
+Apr 12, 2019 12:41:44 AM org.glassfish.grizzly.servlet.WebappContext initServlets
+INFO: [TestContext] Servlet [org.glassfish.jersey.servlet.ServletContainer] registered for url pattern(s) [[/*]].
+Apr 12, 2019 12:41:44 AM org.glassfish.grizzly.servlet.WebappContext deploy
+INFO: Application [TestContext] is ready to service requests.  Root: [].
+Apr 12, 2019 12:41:44 AM org.glassfish.grizzly.http.server.NetworkListener start
+INFO: Started listener bound to [localhost:9998]
+Apr 12, 2019 12:41:44 AM org.glassfish.grizzly.http.server.HttpServer start
+INFO: [HttpServer] Started.
+Apr 12, 2019 12:41:45 AM org.glassfish.grizzly.http.server.NetworkListener shutdownNow
+INFO: Stopped listener bound to [localhost:9998]
+]]></system-err>
+</testsuite>

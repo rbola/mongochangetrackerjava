@@ -1,8 +1,6 @@
 package com.mongodb.poc.integration;
 
 
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoCursor;
 import com.mongodb.poc.model.FamilyManager;
 import com.mongodb.poc.model.PetBed;
 import com.mongodb.poc.model.PetEntity;
@@ -29,7 +27,7 @@ public class PetEntityTest {
 
     private void prePopulateDB() {
         List<PetEntity> dbPets = _manager.getPets();
-        if (dbPets.size()>0) {
+        if (dbPets.size()==0) {
             List<PetEntity> pets = new ArrayList<>();
 
             PetEntity pet1 = new PetEntity();

@@ -1,74 +1,63 @@
 package com.mongodb.poc.unit;
 
+import com.mongodb.poc.model.FamilyManager;
 import com.mongodb.poc.model.PetBed;
 import com.mongodb.poc.model.PetEntity;
-import org.glassfish.jersey.server.ResourceConfig;
-import org.glassfish.jersey.servlet.ServletContainer;
-import org.glassfish.jersey.test.JerseyTest;
-import org.glassfish.jersey.test.DeploymentContext;
-import org.glassfish.jersey.test.ServletDeploymentContext;
-import org.glassfish.jersey.test.spi.TestContainerFactory;
-import org.glassfish.jersey.test.grizzly.GrizzlyWebTestContainerFactory;
-import org.junit.Assert;
-import org.junit.Test;
+import com.mongodb.poc.rest.PetResource;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.*;
+
+import org.glassfish.jersey.test.JerseyTest;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class PetResourceTest extends JerseyTest {
+import static org.mockito.Mockito.*;
 
-    @Path("pets")
-    public static class PetResource {
-        @GET
-        @Produces("application/json")
-        public Response getPets() {
-            List<PetEntity> pets = new ArrayList<>();
+public class PetResourceTest {
 
-            PetEntity pet1 = new PetEntity();
-            PetEntity pet2 = new PetEntity();
-
-            pet1.setAnimal("Dog");
-            PetBed bed1 = new PetBed();
-            bed1.setDescription("Pillow");
-            pet1.setBed(bed1);
+    @Mock
+    FamilyManager mockedManager;
 
 
-            pet2.setAnimal("Cat");
-            PetBed bed2 = new PetBed();
-            bed2.setDescription("Pet Cave");
-            pet2.setBed(bed2);
-
-            pets.add(pet1);
-            pets.add(pet2);
-
-            GenericEntity<List<PetEntity>> response = new GenericEntity<List<PetEntity>>(pets) {};
-
-            return Response.status(200).entity(response).build();
-        }
+    @Before
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
     }
 
- @Override
-    protected TestContainerFactory getTestContainerFactory() {
-        return new GrizzlyWebTestContainerFactory();
+    private List<PetEntity> getPets() {
+        List<PetEntity> pets = new ArrayList<>();
+
+        PetEntity pet1 = new PetEntity();
+        PetEntity pet2 = new PetEntity();
+
+        pet1.setAnimal("DogTest");
+        PetBed bed1 = new PetBed();
+        bed1.setDescription("Pillow Test");
+        pet1.setBed(bed1);
+
+
+        pet2.setAnimal("Cat Test");
+        PetBed bed2 = new PetBed();
+        bed2.setDescription("Pet Cave Test");
+        pet2.setBed(bed2);
+
+        pets.add(pet1);
+        pets.add(pet2);
+
+        return pets;
     }
 
-    @Override
-    public Application configure() {
-        return new ResourceConfig(PetResource.class);
-    }
-
-    @Override
-    protected DeploymentContext configureDeployment() {
-        return ServletDeploymentContext.forServlet(new ServletContainer(
-                new ResourceConfig(PetResource.class))).build();
-    }
 
     @Test
-    public void testGetPetREST(){
-        Response output = target("pets").request(MediaType.APPLICATION_JSON_TYPE).get();
-        System.out.println(output.readEntity(String.class));
-        Assert.assertEquals("should return status 200", 200, output.getStatus());
+    public void testGetPets() {
+        when(mockedManager.getPets()).thenReturn(this.getPets());
+
+        List<PetEntity> pets = mockedManager.getPets();
+        Assert.assertEquals(pets.get(0).getIsTracking(), false);
     }
 }
