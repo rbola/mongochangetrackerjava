@@ -43,10 +43,15 @@ public class PetEntity extends MongoTrackingRootEntity {
     }
 
     public void setAnimal(String vAnimal) {
-        if (_animal != vAnimal) {
-            _animal = vAnimal;
-            set("animal", _animal);
+
+        if (_animal != null) {
+            if (!_animal.equals(vAnimal)) {
+                set("animal", vAnimal);
+            }
         }
+        _animal = vAnimal;
+
+
     }
 
 
